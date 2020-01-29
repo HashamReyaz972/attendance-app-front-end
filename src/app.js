@@ -6,4 +6,4 @@
 
 
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+ReactDOM.render(<p>This is a Front Attendance App</p>, document.getElementById('app'));
