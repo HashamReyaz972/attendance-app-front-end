@@ -1,14 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
-import Signup from '../components/Signup'
+import Sidebar from '../components/Sidebar'
+import Dashboard from '../components/Dashboard'
+import Help from '../components/Help'
 const AppRouter = () => (
   <BrowserRouter>
     <div>-
-      <Dashboard />
+      <Sidebar />
       <Switch>
-
-      <Route path="/signup" component={Signup} />
+        <Route path="/" component={Dashboard} exact={true} />
+        <Route path="/help" component={Help} />
       </Switch>
     </div>
   </BrowserRouter>
