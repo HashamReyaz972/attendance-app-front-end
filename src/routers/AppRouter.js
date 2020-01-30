@@ -8,7 +8,7 @@ import LoginPage from '../components/LoginPage'
 import Help from '../components/Help'
 const AppRouter = () => (
   <BrowserRouter>
-    <div>-
+    <div>
       <Sidebar />
       <Switch>
         <Route path="/" component={Dashboard} exact={true} />
