@@ -3,9 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => (
   <div>
-    <h1>Attendance App</h1>
-    <NavLink to="/" activeClassName="is-active" exact={true}>Home</NavLink>
-    <NavLink to="/help" activeClassName="is-active" exact={true}>Help</NavLink>
+    <div className="sidepane">
+      <div className="sidepane__logo">
+        <h1>Attendance App</h1>
+      </div>
+      <div className="sidepane__inner"></div>
+    </div>
   </div>
 );
 export default Sidebar;
