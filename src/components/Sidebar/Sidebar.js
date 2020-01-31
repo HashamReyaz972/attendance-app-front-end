@@ -8,8 +8,11 @@ const Sidebar = () => (
       <div className="sidepane__logo">
         <h1>Attendance App</h1>
       </div>
-      <NavLink to="/help">Help</NavLink>
-      <div className="sidepane__inner"></div>
+      <div className="sidepane__inner">
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/signup">Signup</NavLink>
+        <NavLink to="/help">Help</NavLink>
+      </div>
     </div>
 );
 export default Sidebar;
