@@ -12,6 +12,7 @@ const AppRouter = () => (
       <Sidebar />
       <Switch>
         <Route path="/" component={Dashboard} exact={true} />
+        <Route path="/login" component={LoginPage} />
         <Route path="/help" component={Help} />
       </Switch>
     </div>

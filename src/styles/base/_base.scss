@@ -7,3 +7,7 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
 }
+
+#app > div {
+  display: flex;
+}
