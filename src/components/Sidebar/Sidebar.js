@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import {connect } from 'react-redux'
 import './_sidebar.scss'
 
 import BeforeSigninLinks from '../BeforeSigninLinks'
@@ -7,7 +7,7 @@ import AfterSigninLinks from '../AfterSigninLinks'
 
  const ChildrenControlLinks = [BeforeSigninLinks, AfterSigninLinks]
 
-const loggedin = true;
+const loggedin = false;
 
 const SidebarHOC = ([ChildOne, ChildTwo]) => {
   return (props) => (
@@ -16,19 +16,23 @@ const SidebarHOC = ([ChildOne, ChildTwo]) => {
          <div className="sidepane__logo">
            <h1>Attendance App</h1>
         </div>
-
+                
     <div>
-      {!loggedin ? (
-        <ChildOne {...props} />
+      {!props.user.jwt ? (
+        <ChildOne />
       ) : (
-          <ChildTwo {...props} />
+          <ChildTwo />
         )}
     </div>
     </div>
   );
 };
-const Sidebar = SidebarHOC(ChildrenControlLinks);
 
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.user 
+  };
+};
 
-
-export default Sidebar;
+const Sidebar = connect(mapStateToProps)(SidebarHOC(ChildrenControlLinks));
+export default Sidebar
