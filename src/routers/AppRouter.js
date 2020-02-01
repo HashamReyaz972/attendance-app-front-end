@@ -5,14 +5,14 @@ import Sidebar from '../components/Sidebar'
 import Dashboard from '../components/Dashboard'
 import LoginPage from '../components/LoginPage';
 import SignUpPage from '../components/SignUpPage';
+import BeforeSigninLinks from '../components/BeforeSigninLinks'
 
 import Help from '../components/Help'
 const AppRouter = () => (
   <BrowserRouter>
     <div>
-      <Sidebar />
       <Switch>
-        <Route path="/" component={Dashboard} exact={true} />
+        <Route path="/" component={BeforeSigninLinks} exact={true} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/help" component={Help} />
