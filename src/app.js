@@ -12,11 +12,6 @@
 
  const store = configureStore();
 
-store.dispatch(loginUser({jwt: 'logged in'}));
-
-const state = store.getState();
-console.log(state);
-
 const jsx = (
   <Provider store={store}>
     <AppRouter />
