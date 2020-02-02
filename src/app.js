@@ -9,4 +9,6 @@
  import './styles/base/_base.scss'
 
 
+ console.log("gf");
+
 ReactDOM.render(<TestRouter />, document.getElementById('app'));

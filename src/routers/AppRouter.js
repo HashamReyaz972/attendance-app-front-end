@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
+
 import Sidebar from '../components/Sidebar'
 import Dashboard from '../components/Dashboard'
 
@@ -10,7 +11,7 @@ const AppRouter = () => (
     <div>
       <Sidebar />
       <Switch>
-        <Route path="/" component={Dashboard} exact={true} />
+        <Route path="/" component={Dashboard} exact={true}  />
         <Route path="/help" component={Help} />
       </Switch>
     </div>
