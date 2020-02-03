@@ -46,7 +46,7 @@ class LoginPage extends Component{
                             <div>
                                 <label      
                                     className="usernameLabel"
-                                    for="username"
+                                    htmlFor="username"
                                 >
                                     USERNAME
                                 </label>
@@ -63,7 +63,7 @@ class LoginPage extends Component{
                             <div>
                                 <label 
                                     className="pwdLabel"
-                                    for="password"
+                                    htmlFor="password"
                                 >
                                     PASSWORD
                                 </label>
@@ -84,7 +84,7 @@ class LoginPage extends Component{
                                         id="remember_me"
                                     />
                                     <label 
-                                        for="remember_me"
+                                        htmlFor="remember_me"
                                     >
                                         Remember Me
                                     </label>

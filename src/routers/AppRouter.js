@@ -21,6 +21,7 @@ const AppRouter = () => (
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/help" render={ (routeProps)=>(<AuthHelp requiredRole="teacher" {...routeProps} />) } />
+
       </Switch>
     </div>
   </BrowserRouter>

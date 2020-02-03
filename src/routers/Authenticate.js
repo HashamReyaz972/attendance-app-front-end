@@ -9,20 +9,15 @@ export default (WrappedComponent) => {
         }
         
         componentDidMount() {
-            console.log(this.props);
             this.checkAndRedirect()
         }
 
-        componentDidUpdate() {
-            this.checkAndRedirect()
-        }
 
         checkAndRedirect() {
             if(this.isAuthenticated()){
-                this.state.isAuthenticated = true
+                this.setState( {isAuthenticated : true} )
             }else{
-                this.state.isAuthenticated = false 
-                console.log("Not Authenticated!!!")
+                this.setState( {isAuthenticated : false} )
                 this.props.history.push('/')
             }
         }
