@@ -1,5 +1,7 @@
 import React , { Component } from 'react'
-import { Link } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {loginUser} from '../../actions/user'
+import API from '../../api';
 import "./LoginPage.scss"
 
 class LoginPage extends Component{
@@ -23,6 +25,15 @@ class LoginPage extends Component{
         this.setState(()=>({ password }))
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('submit')
+        API.post(`signin`)
+            .then(res => {
+                this.props.dispatch(loginUser(res.data));
+      })  
+    }
+
     render(){
         return (
             <div className="LoginMainBody">
@@ -31,7 +42,7 @@ class LoginPage extends Component{
                         <header>
                             <h1>Account Login</h1>
                         </header>
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div>
                                 <label      
                                     className="usernameLabel"
@@ -83,7 +94,7 @@ class LoginPage extends Component{
                             </div>
 
                             <div className="LoginButton">
-                                Login
+                            <button type="submit" value="Submit">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -93,4 +104,11 @@ class LoginPage extends Component{
     }
 }
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+    return {
+      user: state.user
+    };
+  };
+  
+export default connect(mapStateToProps)(LoginPage);
+  
