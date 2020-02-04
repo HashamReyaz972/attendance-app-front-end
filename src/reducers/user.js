@@ -1,7 +1,7 @@
 // Expenses Reducer
 
 const userReducerDefaultState = {
-  jwt: 'loggedIn'
+  jwt: ''
 };
 
 export default (state = userReducerDefaultState, action) => {

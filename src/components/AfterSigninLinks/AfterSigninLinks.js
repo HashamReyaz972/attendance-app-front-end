@@ -16,18 +16,18 @@ import './_afterSigninLinks.scss'
 const AfterSigninLinks = () => (
   <div className="after-signin-nav">
     <div className="user-profile-div">
-        <div className="user-image">
+        <a className="user-image">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53474/atom_profile_01.jpg" alt="User"/>
-        </div>
+        </a>
         <p className="username">Hasham Reyaz</p>
     </div>
     <div className="sidepane-nav">
-    <ul class='navigation'>
-      <li className='navigation-item'><a>Home</a></li>
-      <li className='navigation-item'><a>Attendance</a></li>
-      <li className='navigation-item'><a>Notifications</a></li>
-      <li className='navigation-item'><a>Logout</a></li>
-    </ul>
+    <div className='navigation'>
+      <a className='navigation-item'>Home</a>
+      <a className='navigation-item'>Attendance</a>
+      <a className='navigation-item'>Notifications</a>
+      <a className='navigation-item'>Logout</a>
+    </div>
     </div>
   </div>
 );
