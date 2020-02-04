@@ -22,7 +22,7 @@
 
 .SignUpFormContainer{
     font-family: 'Play', sans-serif;
-    .usernameLabel,.pwdLabel{
+    .usernameLabel,.pwdLabel,.roleLabel{
         display: block;
         padding-bottom: 0.8rem;
         
@@ -75,11 +75,26 @@
         text-align: center;
         color:white;
         font-size:1.1rem;
+        border:none;
         &:hover{
             cursor: pointer;
             background-color:green
         }
     }
 
+    .selectDiv{
+        border: 1px solid #e6e6e6;
+        margin-bottom: 2rem;
+    }
+
+    select{
+        background: none;
+        display: block;
+        width: 100%;
+        height:3.8em;
+        border:none;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.2rem
+    }
 
 }

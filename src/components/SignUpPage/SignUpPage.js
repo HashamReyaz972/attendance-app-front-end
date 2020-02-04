@@ -8,7 +8,9 @@ class SignUpPage extends Component{
 
         this.state={
             username: "",
+            role: "student",
             password: "",
+            confirm_password: "",
             remember_me: true
         }
     }
@@ -23,6 +25,42 @@ class SignUpPage extends Component{
         this.setState(()=>({ password }))
     }
 
+    onConfirmPasswordChange = (e)=>{
+        const confirm_password = e.target.value
+        this.setState(()=>({ confirm_password }))
+    }
+
+    onRoleChange = (e)=>{
+        const role = e.target.value;
+        this.setState(()=> ({ role }))
+    }
+
+    handleSubmit = (e)=>{
+        e.preventDefault();
+        const user_data = this.state
+        delete user_data.confirm_password
+
+        console.log(user_data);
+
+        fetch('http://localhost:5000/signup',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user_data)
+        })
+        .then(response => response.json())
+        .then((data) =>{
+            if(data['status'] === 200){
+                console.log(data);
+                this.props.history.push('/login')
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+
     render(){
         return (
             <div className="SignUpMainBody">
@@ -31,7 +69,7 @@ class SignUpPage extends Component{
                         <header>
                             <h1>Account SignUp</h1>
                         </header>
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div>
                                 <label      
                                     className="usernameLabel"
@@ -47,6 +85,19 @@ class SignUpPage extends Component{
                                         value={this.state.username}
                                         onChange={this.onUsernameChange}
                                     />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="roleLabel">ROLE</label>
+                                <div className="selectDiv">
+                                    <select 
+                                        name="role"
+                                        value={this.state.role}
+                                        onChange={this.onRoleChange}
+                                    >
+                                        <option value="student">Student</option>
+                                        <option value="teacher">Teacher</option>
+                                    </select>
                                 </div>
                             </div>
                             <div>
@@ -79,10 +130,11 @@ class SignUpPage extends Component{
                                         id="confirm-password"
                                         placeholder=""
                                         value={this.state.confirm_password}
-                                        onChange={this.onPasswordChange}
+                                        onChange={this.onConfirmPasswordChange}
                                     />
                                 </div>
                             </div>
+                            
                             <div className="SignUpFooter">
                                 <div className="remember-me">
                                     <input 
@@ -99,9 +151,9 @@ class SignUpPage extends Component{
                                 <div>Account Already Exist?</div>   
                             </div>
 
-                            <div className="SignUpButton">
+                            <button className="SignUpButton">
                                 SignUp
-                            </div>
+                            </button>
                         </form>
                     </div>
                 </div>

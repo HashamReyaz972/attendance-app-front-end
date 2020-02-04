@@ -28,10 +28,18 @@ class LoginPage extends Component{
     handleSubmit = (e) => {
         e.preventDefault()
         console.log('submit')
-        API.post(`signin`)
-            .then(res => {
-                this.props.dispatch(loginUser(res.data));
-      })  
+        console.log(JSON.stringify(this.state));
+        fetch('http://localhost:5000/login',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then( response => response.json())
+        .then(response => {
+            console.log(response)
+        })
     }
 
     render(){
@@ -93,9 +101,9 @@ class LoginPage extends Component{
                                 <div>Forgot Password?</div>   
                             </div>
 
-                            <div className="LoginButton">
-                            <button type="submit" value="Submit">Submit</button>
-                            </div>
+                            <button className="LoginButton">
+                                Login
+                            </button>
                         </form>
                     </div>
                 </div>
