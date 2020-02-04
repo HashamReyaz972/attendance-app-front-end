@@ -5,9 +5,10 @@ import './_beforeSigninLinks.scss'
 
 const BeforeSigninLinks = () => (
       <div className="BeforeSigninLinks__wrapper">
-        <NavLink className=" a third after"  to="/login">Login</NavLink>
-        <NavLink className="a third after" to="/signup">Signup</NavLink>
-        <NavLink className="a third after" to="/help">Help</NavLink>
-      </div>
+        <button className=" button"><NavLink to="/login">Login</NavLink></button>
+        <button className="button"><NavLink to="/signup">Signup</NavLink></button>
+        <button className="button"><NavLink to="/help">Help</NavLink></button>
+      </div> 
+      
 );
 export default BeforeSigninLinks;

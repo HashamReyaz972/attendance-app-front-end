@@ -14,7 +14,7 @@ const AuthHelp = Authenticate(Help)
 
 const AppRouter = () => (
   <BrowserRouter>
-    <div>
+    <div >
       <Sidebar />
       <Switch>
         <Route path="/" component={Dashboard} exact={true} />
