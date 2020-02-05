@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import {connect} from 'react-redux'
-import {loginUser} from '../../actions/user'
-import API from '../../api';
+// import {loginUser} from '../../actions/user'
+// import API from '../../api';
 import "./LoginPage.scss"
 
 class LoginPage extends Component{
@@ -39,6 +39,8 @@ class LoginPage extends Component{
         .then( response => response.json())
         .then(response => {
             console.log(response)
+            //Dispatch Login 
+            // this.props.dispatch({type: "LOGIN USER"})
         })
     }
 

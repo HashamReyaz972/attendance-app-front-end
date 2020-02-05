@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 
 import './_afterSigninLinks.scss'
 
@@ -16,17 +16,17 @@ import './_afterSigninLinks.scss'
 const AfterSigninLinks = () => (
   <div className="after-signin-nav">
     <div className="user-profile-div">
-        <a className="user-image">
+        <a href="/" className="user-image">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53474/atom_profile_01.jpg" alt="User"/>
         </a>
         <p className="username">Hasham Reyaz</p>
     </div>
     <div className="sidepane-nav">
     <div className='navigation'>
-      <a className='navigation-item'>Home</a>
-      <a className='navigation-item'>Attendance</a>
-      <a className='navigation-item'>Notifications</a>
-      <a className='navigation-item'>Logout</a>
+      <a href="/" className='navigation-item'>Home</a>
+      <a href="/" className='navigation-item'>Attendance</a>
+      <a href="/" className='navigation-item'>Notifications</a>
+      <a href="/" className='navigation-item'>Logout</a>
     </div>
     </div>
   </div>

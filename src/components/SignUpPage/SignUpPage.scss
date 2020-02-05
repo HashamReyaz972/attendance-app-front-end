@@ -27,6 +27,7 @@
         padding-bottom: 0.8rem;
         
     }
+    
 
     .inputDiv{
         border:1px solid #e6e6e6;
@@ -36,6 +37,15 @@
         color:#555;
     }
 
+    .inputErrorDiv{
+        margin-bottom: 2.6rem;
+        span{
+            color: red;
+        }
+        .inputDiv{
+            margin-bottom: 1rem;
+        }
+    }
     .inputDiv > input{
         display: block;
         padding:0 1rem 0 1rem;

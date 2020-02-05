@@ -1,5 +1,5 @@
 import React , { Component } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import "./SignUpPage.scss"
 
 class SignUpPage extends Component{
@@ -11,7 +11,13 @@ class SignUpPage extends Component{
             role: "student",
             password: "",
             confirm_password: "",
-            remember_me: true
+            remember_me: true,
+            errors: {
+                username: "",
+                password: "",
+                usernameOrPassword: "",
+                confirmPassword: ""
+            }
         }
     }
 
@@ -40,7 +46,29 @@ class SignUpPage extends Component{
         const user_data = this.state
         delete user_data.confirm_password
 
-        console.log(user_data);
+        // console.log(user_data);
+        //Form Authentication
+        // if(user_data.username === ''){
+            
+        // }else if(user_data.password === ''){
+
+        // }else if(user_data.confirm_password === ''){
+
+        // }else 
+        if(user_data['password'] !== user_data['confirm_password']){
+            this.setState((prevState) =>{
+                console.log(...prevState.errors, 'Spread oerator working');
+                return {
+                    errors:{
+                        ...prevState.errors,
+                        confirmPassword: "password did not match"
+                    }
+                }
+            })
+        }
+
+
+
 
         fetch('http://localhost:5000/signup',{
             method: 'POST',
@@ -124,14 +152,17 @@ class SignUpPage extends Component{
                                 >
                                     CONFIRM PASSWORD
                                 </label>
-                                <div className="inputDiv">
-                                    <input 
-                                        type="password"
-                                        id="confirm-password"
-                                        placeholder=""
-                                        value={this.state.confirm_password}
-                                        onChange={this.onConfirmPasswordChange}
-                                    />
+                                <div className="inputErrorDiv">
+                                    <div className="inputDiv">
+                                        <input 
+                                            type="password"
+                                            id="confirm-password"
+                                            placeholder=""
+                                            value={this.state.confirm_password}
+                                            onChange={this.onConfirmPasswordChange}
+                                        />
+                                    </div>
+                                    {this.state.errors.confirmPassword && <span className="confirmPasswordError">{this.state.errors.confirmPassword}</span>}
                                 </div>
                             </div>
                             

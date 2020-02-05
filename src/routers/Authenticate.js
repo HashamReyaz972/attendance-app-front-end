@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 export default (WrappedComponent) => {
     class Authenticate extends Component {

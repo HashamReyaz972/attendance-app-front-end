@@ -7,7 +7,7 @@ import AfterSigninLinks from '../AfterSigninLinks'
 
  const ChildrenControlLinks = [BeforeSigninLinks, AfterSigninLinks]
 
-const loggedin = false;
+// const loggedin = false;
 
 const SidebarHOC = ([ChildOne, ChildTwo]) => {
   return (props) => (
