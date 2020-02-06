@@ -6,12 +6,15 @@ class SignUpPage extends Component{
     constructor(props){
         super(props);
 
+        /////////////////////STATE///////////////////////////////
         this.state={
-            username: "username",
-            role: "student",
-            password: "",
-            confirm_password: "",
-            remember_me: false,
+            signup_data:{
+                username: "username",
+                role: "student",
+                password: "",
+                confirm_password: "",
+                remember_me: false,
+            },
             errorsExists: false,
             errors: {
                 username: "",
@@ -19,27 +22,64 @@ class SignUpPage extends Component{
                 confirmPassword: ""
             }
         }
+
+        //////////////////////STATE END///////////////////////////
     }
+
+    /////////////////////////INPUT HANDLERS////////////////////////////
 
     onUsernameChange = (e)=>{
         const username = e.target.value
-        this.setState(()=>({ username }))
+        this.setState((prevState)=>{
+            return {
+                signup_data: {
+                    ...prevState.signup_data,
+                    username
+                }
+            }
+        })
     }
 
     onPasswordChange = (e)=>{
         const password = e.target.value
-        this.setState(()=>({ password }))
+        this.setState((prevState)=>{
+            return {
+                signup_data: {
+                    ...prevState.signup_data,
+                    password
+                }
+            }
+        })
     }
 
     onConfirmPasswordChange = (e)=>{
         const confirm_password = e.target.value
-        this.setState(()=>({ confirm_password }))
+        this.setState((prevState)=>{
+            return {
+                signup_data: {
+                    ...prevState.signup_data,
+                    confirm_password
+                }
+            }
+        })
     }
 
     onRoleChange = (e)=>{
         const role = e.target.value;
-        this.setState(()=> ({ role }))
+        this.setState((prevState)=>{
+            return {
+                signup_data: {
+                    ...prevState.signup_data,
+                    role
+                }
+            }
+        })
     }
+
+    ///////////////////////INPUT HANDLERS END//////////////////////////////
+    
+
+    ///////////////////////ERRORS HANDLERS//////////////////////////////////
 
     setErrors = (toUpdate)=>{
         this.setState((prevState) =>{
@@ -64,20 +104,8 @@ class SignUpPage extends Component{
         this.setState({errorsExists: false});
     }
 
-    waitTillStateChange(callback){
-        this.setState(state => state,()=>{
-                callback()
-            }
-        )
-    }
 
-    handleSubmit = (e)=>{
-        e.preventDefault();
-        const user_data = {...this.state}
-
-        this.clearAllErrors();
-        // Form Authentication
-
+    applyAuthentication(user_data){
         if(user_data.username === ''){
             this.setErrors({username: "Fill the box"})
         }else if(user_data.password === ''){
@@ -87,6 +115,32 @@ class SignUpPage extends Component{
         }else if(user_data['password'] !== user_data['confirm_password']){
             this.setErrors({confirmPassword: "password did not match"})
         }
+    }
+
+    ///////////////////////ERROR HANDLERS END/////////////////////////////////////
+
+
+    /////////////////////SETSTATE CALLBACK/////////////////////////////////
+
+    waitTillStateChange(callback){
+        this.setState(state => state,()=>{
+                callback()
+            }
+        )
+    }
+
+    ////////////////////SETSTATE CALLBACK END//////////////////////////////
+
+
+    ///////////////////////SIGN UP HANDLER////////////////////////////////
+
+    handleSubmit = (e)=>{
+        e.preventDefault();
+        const user_data = {...this.state.signup_data}
+
+        this.clearAllErrors();
+
+        this.applyAuthentication(user_data)
 
         delete user_data.confirm_password
         
@@ -130,6 +184,8 @@ class SignUpPage extends Component{
         })
     }
 
+    /////////////////////SIGNUP HANDLER END////////////////////////////////////
+
     render(){
         return (
             <div className="SignUpMainBody">
@@ -152,7 +208,7 @@ class SignUpPage extends Component{
                                         <input 
                                             type="text"
                                             id="username"
-                                            value={this.state.username}
+                                            value={this.state.signup_data.username}
                                             onChange={this.onUsernameChange}
                                         />
                                     </div>
@@ -165,7 +221,7 @@ class SignUpPage extends Component{
                                 <div className="selectDiv">
                                     <select 
                                         name="role"
-                                        value={this.state.role}
+                                        value={this.state.signup_data.role}
                                         onChange={this.onRoleChange}
                                     >
                                         <option value="student">Student</option>
@@ -185,7 +241,7 @@ class SignUpPage extends Component{
                                         <input 
                                             type="password"
                                             id="password"
-                                            value={this.state.password}
+                                            value={this.state.signup_data.password}
                                             onChange={this.onPasswordChange}
                                         />
                                     </div>
@@ -205,7 +261,7 @@ class SignUpPage extends Component{
                                         <input 
                                             type="password"
                                             id="confirm-password"
-                                            value={this.state.confirm_password}
+                                            value={this.state.signup_data.confirm_password}
                                             onChange={this.onConfirmPasswordChange}
                                         />
                                     </div>
