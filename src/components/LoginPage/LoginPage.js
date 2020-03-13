@@ -8,42 +8,154 @@ class LoginPage extends Component{
     constructor(props){
         super(props);
 
+        //////////////////////STATE /////////////////////////////////////
+
         this.state={
-            username: "",
-            password: "",
-            remember_me: true
+            user_data: {
+                username: "",
+                password: "",
+                remember_me: true
+            },
+            errorsExists: false,
+            errors:{
+                username: "",
+                password: "",
+                usernameOrPassword: "",
+                otherError: ""
+            }
         }
+
+        ///////////////////////////STATE ENDS //////////////////////////////////
     }
 
+
+    ////////////////////////////////// INPUT HANDLERS ///////////////////////////
     onUsernameChange = (e)=>{
         const username = e.target.value
-        this.setState(()=>({ username }))
+        this.setState((prevState)=>{
+            return {
+                user_data: {
+                    ...prevState.user_data,
+                    username
+                }
+            }
+        });
     }
 
     onPasswordChange = (e)=>{
         const password = e.target.value
-        this.setState(()=>({ password }))
+        this.setState((prevState)=>{
+            return {
+                user_data: {
+                    ...prevState.user_data,
+                    password
+                }
+            }
+        });
     }
+
+    ////////////////////////////////// INPUT HANDLERS ENDS ///////////////////////////////
+
+
+
+    ///////////////////////ERRORS HANDLERS//////////////////////////////////
+
+    setErrors = (toUpdate)=>{
+        this.setState((prevState) =>{
+            return {
+                errors:{
+                    ...prevState.errors,
+                    ...toUpdate
+                }
+            }
+        })
+        this.setState({errorsExists: true});
+    }
+
+    clearAllErrors = ()=>{
+        this.setErrors({
+            username: "",
+            password: "",
+            usernameOrPassword: "",
+            otherError: ""
+        })
+        this.setState({errorsExists: false});
+    }
+
+
+    applyAuthentication(user_data){
+        if(user_data.username === ''){
+            this.setErrors({username: "Fill the box"})
+        }else if(user_data.password === ''){
+            this.setErrors({password: "Fill the box"})
+        }
+    }
+
+    ///////////////////////ERROR HANDLERS END/////////////////////////////////////
+
+
+    /////////////////////SETSTATE CALLBACK/////////////////////////////////
+
+    waitTillStateChange(callback){
+        this.setState(state => state,()=>{
+                callback()
+            }
+        )
+    }
+
+    ////////////////////SETSTATE CALLBACK END//////////////////////////////
+
+
+    ////////////////////LOGIN HANDLER /////////////////////////////////////
 
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log('submit')
-        console.log(JSON.stringify(this.state));
-        fetch('http://localhost:5000/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
+
+        const login_data = {...this.state.user_data};
+
+        this.clearAllErrors();
+        this.applyAuthentication(login_data)
+
+
+        this.waitTillStateChange(()=>{
+            if(!this.state.errorsExists){
+                fetch('http://localhost:5000/login',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(login_data)
+                })
+                .then( response => response.json())
+                .then(response => {
+                    console.log(response)
+                    if(response.status === 200){
+                        const result = response.result;
+                        switch(result.status){
+                            case 200:
+                                console.log("User is Logged in !!!")
+                                this.props.history.push('/');
+                                // this.props.dispatch({type: "LOGIN USER"})
+                                break;
+                            case 422:
+                                this.setErrors({usernameOrPassword: result.message})
+                                break;
+                            default:
+                                console.log("Unknown response")
+                                break;
+                        }
+                    }else if(response.status === 400){
+                        const result = response.result;
+                        console.log(result.message);
+                    }
+                })
+            }
         })
-        .then( response => response.json())
-        .then(response => {
-            console.log(response)
-            //Dispatch Login 
-            // this.props.dispatch({type: "LOGIN USER"})
-        })
+
     }
 
+
+    //////////////////////////LOGIN HANDLER ENDS //////////////////////////////
     render(){
         return (
             <div className="LoginMainBody">
@@ -52,6 +164,7 @@ class LoginPage extends Component{
                         <header>
                             <h1>Account Login</h1>
                         </header>
+                        {this.state.errors.usernameOrPassword && <p className="errorMessage">{this.state.errors.usernameOrPassword}</p>}
                         <form onSubmit={this.handleSubmit}>
                             <div>
                                 <label      
@@ -60,14 +173,17 @@ class LoginPage extends Component{
                                 >
                                     USERNAME
                                 </label>
-                                <div className="inputDiv">
-                                    <input 
-                                        type="text"
-                                        id="username"
-                                        placeholder=""
-                                        value={this.state.username}
-                                        onChange={this.onUsernameChange}
-                                    />
+                                <div className="inputErrorDiv">
+                                    <div className="inputDiv">
+                                        <input 
+                                            type="text"
+                                            id="username"
+                                            placeholder=""
+                                            value={this.state.username}
+                                            onChange={this.onUsernameChange}
+                                        />
+                                    </div>
+                                    {this.state.errors.username && <span>{this.state.errors.username}</span>}
                                 </div>
                             </div>
                             <div>
@@ -77,14 +193,17 @@ class LoginPage extends Component{
                                 >
                                     PASSWORD
                                 </label>
-                                <div className="inputDiv">
-                                    <input 
-                                        type="password"
-                                        id="password"
-                                        placeholder=""
-                                        value={this.state.password}
-                                        onChange={this.onPasswordChange}
-                                    />
+                                <div className="inputErrorDiv">
+                                    <div className="inputDiv">
+                                        <input 
+                                            type="password"
+                                            id="password"
+                                            placeholder=""
+                                            value={this.state.password}
+                                            onChange={this.onPasswordChange}
+                                        />
+                                    </div>
+                                    {this.state.errors.password && <span>{this.state.errors.password}</span>}
                                 </div>
                             </div>
                             <div className="LoginFooter">

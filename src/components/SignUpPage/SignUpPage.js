@@ -19,7 +19,8 @@ class SignUpPage extends Component{
             errors: {
                 username: "",
                 password: "",
-                confirmPassword: ""
+                confirmPassword: "",
+                otherError: ""
             }
         }
 
@@ -97,7 +98,6 @@ class SignUpPage extends Component{
         this.setErrors({
             username: "",
             password: "",
-            usernameOrPassword: "",
             confirmPassword: "",
             otherError: ""
         })
@@ -157,7 +157,7 @@ class SignUpPage extends Component{
                 .then(response => response.json())
                 .then((response) =>{
                     if(response['status'] === 200){
-                        const result = response['result'];
+                        const result = response.result;
                         switch(result.status){
                             case 201:
                                 this.props.history.push('/login')
