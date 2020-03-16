@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 // import {loginUser} from '../../actions/user'
 // import API from '../../api';
 import "./LoginPage.scss"
+import {loginUser} from  "../../actions/user";
 
 class LoginPage extends Component{
     constructor(props){
@@ -126,19 +127,18 @@ class LoginPage extends Component{
                     },
                     body: JSON.stringify(login_data)
                 })
-                .then( response => response.json())
+                .then(response => response.json())
                 .then(response => {
-                    console.log(response)
-                    if(response.status === 200){
-                        const result = response.result;
-                        switch(result.status){
+                    const { jwt, message, status } = response.result;
+                    if(status === 200){
+                        switch(status){
                             case 200:
                                 console.log("User is Logged in !!!")
-                                this.props.history.push('/');
-                                // this.props.dispatch({type: "LOGIN USER"})
+                                this.props.login({jwt});
+                                // this.props.history.push('/login');
                                 break;
-                            case 422:
-                                this.setErrors({usernameOrPassword: result.message})
+                            case 401:
+                                this.setErrors({usernameOrPassword: message})
                                 break;
                             default:
                                 console.log("Unknown response")
@@ -238,6 +238,13 @@ const mapStateToProps = (state) => {
       user: state.user
     };
   };
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (jwt) => dispatch( loginUser(jwt) ),
+        dispatch: (obj) => dispatch(obj)
+    }
+}
   
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
   
